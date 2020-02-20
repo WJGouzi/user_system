@@ -24,7 +24,7 @@ public class JDBCUtils {
      */
     static {
         try {
-            // 读取配置文件
+            // 读取配置文件 公司电脑 数据库密码WangJun19910521 自己电脑的数据的密码wangjun 用户名都为root
             Properties properties = new Properties();
             InputStream is = JDBCUtils.class.getClassLoader().getResourceAsStream("druid.properties");
             properties.load(is);

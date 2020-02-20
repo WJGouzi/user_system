@@ -14,6 +14,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
  **/
 public class UserDaoImpl implements UserDao {
     JdbcTemplate jdbcTemplate = new JdbcTemplate(JDBCUtils.getDataSource());
+
     @Override
     public UserBean findUserByUserIdAndPassword(String userId, String password) {
         try {
