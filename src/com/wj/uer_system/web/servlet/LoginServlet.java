@@ -33,14 +33,13 @@ public class LoginServlet extends HttpServlet {
         // 如果失败就直接返回到之前的界面去。
         HttpSession session = request.getSession();
         String checkCode = (String) session.getAttribute("checkCodeNumber");
-
+        session.removeAttribute("checkCodeNumber");
         String verifycode = request.getParameter("verifycode");
         if (!(checkCode != null && checkCode.equalsIgnoreCase(verifycode))) {
             request.setAttribute("loginError", "验证码错误");
             request.getRequestDispatcher("/login.jsp").forward(request, response);
             return;
         }
-
         String userId = request.getParameter("userId");
         String password = request.getParameter("password");
         UserBean userBean = new UserBean();
@@ -49,11 +48,12 @@ public class LoginServlet extends HttpServlet {
         UserBean user = userService.login(userBean.getUserId(), userBean.getPassword());
         System.out.println(user);
         if (user != null) {
-            request.getRequestDispatcher("").forward(request, response);
+            session.setAttribute("userInfo", user);
+            response.sendRedirect(request.getContextPath()+"/index.jsp");
         } else  {
             request.setAttribute("loginError", "账号或密码错误");
+            request.getRequestDispatcher("/login.jsp").forward(request, response);
         }
-
     }
 
     @Override

@@ -5,6 +5,8 @@ import com.wj.uer_system.dao.impl.UserDaoImpl;
 import com.wj.uer_system.domain.UserBean;
 import com.wj.uer_system.service.UserService;
 
+import java.util.List;
+
 /**
  * @Project : user_system
  * @Package : com.wj.uer_system.service.impl
@@ -17,5 +19,16 @@ public class UserServiceImpl implements UserService {
     public UserBean login(String userId, String password) {
         UserBean loginUser = userDao.findUserByUserIdAndPassword(userId, password);
         return loginUser;
+    }
+
+    @Override
+    public List<UserBean> findAll() {
+        List<UserBean> userBeans = userDao.findAllUsers();
+        return userBeans;
+    }
+
+    @Override
+    public Boolean addUser(UserBean userBean) {
+        return userDao.addUser(userBean);
     }
 }

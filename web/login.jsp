@@ -1,4 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
+
 <!DOCTYPE html>
 <html lang="zh-CN">
   <head>
@@ -19,13 +23,21 @@
 	 		checkCode.src = "${pageContext.request.contextPath}/checkCodeServlet?time=" + new Date().getTime();
 		}
 
+		window.onload = function () {
+			document.getElementById("submit").onclick = function () {
+				var userIdTag = document.getElementById("userId");
+				var passwordTag = document.getElementById("password");
+				var checkCodeTag = document.getElementById("verifycode");
+				return;
+			}
+		}
 	</script>
 
   </head>
   <body>
   	<div class="container" style="width: 400px;">
   		<h3 style="text-align: center;">管理员登录</h3>
-        <form action="${pageContext.request.contextPath}/loginServlet" method="post">
+        <form id="submitForm" action="${pageContext.request.contextPath}/loginServlet" method="post">
 	      <div class="form-group">
 	        <label for="userId">用户名：</label>
 	        <input type="text" name="userId" class="form-control" id="userId" placeholder="请输入用户名"/>
@@ -45,17 +57,19 @@
 	      </div>
 	      <hr/>
 	      <div class="form-group" style="text-align: center;">
-	        <input class="btn btn btn-primary" type="submit" value="登录">
+	        <input id="submit" class="btn btn btn-primary" type="submit" value="登录">
 	       </div>
 	  	</form>
 		
 		<!-- 出错显示的信息框 -->
-	  	<div class="alert alert-warning alert-dismissible" role="alert">
-		  <button type="button" class="close" data-dismiss="alert" >
-		  	<span>&times;</span>
-		  </button>
-		   <strong>${loginError}</strong>
-		</div>
+	  	<c:if test="${fn:length(loginError)>'0'}" >
+			<div class="alert alert-warning alert-dismissible" role="alert">
+				<button type="button" class="close" data-dismiss="alert" >
+					<span>x</span>
+				</button>
+				<strong>${loginError}</strong>
+			</div>
+		</c:if>
   	</div>
   </body>
 </html>
