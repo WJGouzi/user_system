@@ -19,6 +19,13 @@ public interface UserDao {
     UserBean findUserByUserIdAndPassword(String userId, String password);
 
     /**
+     * 通过id查找用户信息
+     * @param id 用户的id
+     * @return
+     */
+    UserBean findUserById(int id);
+
+    /**
      * 全量搜索用户信息
      * @return
      */
@@ -30,4 +37,18 @@ public interface UserDao {
      * @return
      */
     Boolean addUser(UserBean userBean);
+
+    /**
+     * 通过用户id进行删除
+     * @param id 用户的id
+     * @return
+     */
+    boolean deleteUserById(int id);
+
+    /**
+     * 更新用户的信息
+     * @param userBean
+     * @return
+     */
+    boolean updateUserInfo(UserBean userBean);
 }

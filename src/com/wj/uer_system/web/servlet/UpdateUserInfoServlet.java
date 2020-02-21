@@ -18,29 +18,31 @@ import java.util.Map;
  * @Project : user_system
  * @Package : ${PACKAGE_NAME}
  * @Author : Created By wangjun, Copyright © wangjun All Rights Reserved
- * @Date : 2020/2/20 21:54
- * 添加用户的servlet
+ * @Date : 2020/2/21 21:57
+ * 更新用户的信息的servlet
  **/
-@WebServlet("/addUserServlet")
-public class AddUserServlet extends HttpServlet {
+@WebServlet("/updateUserInfoServlet")
+public class UpdateUserInfoServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
-        Map<String, String[]> parameterMap = request.getParameterMap();
+        Map<String, String[]> userInfo = request.getParameterMap();
         UserBean userBean = new UserBean();
         try {
-            BeanUtils.populate(userBean, parameterMap);
+            BeanUtils.populate(userBean, userInfo);
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         } catch (InvocationTargetException e) {
             e.printStackTrace();
         }
 
-        // 将数据提交到数据后进行返回到之前的界面
-        UserService userService = new UserServiceImpl();
-        Boolean result = userService.addUser(userBean);
-        if (result) {
-            response.sendRedirect(request.getContextPath()+"/allUserListServlet");
+        if (userBean != null) {
+            // 提交进行修改
+            UserService userService = new UserServiceImpl();
+            boolean flag = userService.updateUserInfo(userBean);
+            if (flag) {
+                response.sendRedirect(request.getContextPath()+"/allUserListServlet");
+            }
         }
     }
 

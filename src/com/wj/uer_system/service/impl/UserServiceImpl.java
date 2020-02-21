@@ -28,7 +28,29 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserBean findUserById(String id) {
+        return userDao.findUserById(Integer.parseInt(id));
+    }
+
+    @Override
     public Boolean addUser(UserBean userBean) {
         return userDao.addUser(userBean);
+    }
+
+    @Override
+    public boolean deleteUserById(String id) {
+        //首先查找用户的信息
+        UserBean userBean = this.findUserById(id);
+        if (userBean == null) {
+            return false;
+        }
+        return userDao.deleteUserById(Integer.parseInt(id));
+    }
+
+    @Override
+    public boolean updateUserInfo(UserBean userBean) {
+
+        return userDao.updateUserInfo(userBean);
+
     }
 }

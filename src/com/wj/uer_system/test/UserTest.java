@@ -34,6 +34,17 @@ public class UserTest {
         UserBean userBean = new UserBean(null, "黄思盛", "男", 24, "德阳市", "1234342", "huangsisheng@qq.com", null, null);
         Boolean flag = userService.addUser(userBean);
         System.out.println(flag);
+    }
 
+    @Test
+    public void deleteUserById() {
+        boolean flag = userService.deleteUserById("13");
+        System.out.println(flag);
+    }
+
+    @Test
+    public void updateUserInfo() {
+        UserBean userBean = new UserBean(13, "黄思盛", "男", 25, "德阳", "55231213", "huangsisheng@qq.com", null, null);
+        userService.updateUserInfo(userBean);
     }
 }

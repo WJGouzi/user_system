@@ -30,6 +30,20 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public UserBean findUserById(int id) {
+
+        try {
+            String sql = "select * from t_user where id = ?";
+            UserBean userBean = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<UserBean>(UserBean.class), id);
+            return userBean;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+    @Override
     public List<UserBean> findAllUsers() {
         try {
             String sql = "select * from t_user";
@@ -46,6 +60,30 @@ public class UserDaoImpl implements UserDao {
         try {
             String sql = "insert into t_user values(null, ?, ?, ?, ?, ?, ?, null, null)";
             jdbcTemplate.update(sql, userBean.getName(), userBean.getGender(), userBean.getAge(), userBean.getAddress(), userBean.getQq(), userBean.getEmail());
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean deleteUserById(int userId) {
+        try {
+            String sql = "delete from t_user where id = ?";
+            jdbcTemplate.update(sql, userId);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean updateUserInfo(UserBean userBean) {
+        try {
+            String sql = "update t_user set name = ?, gender = ?, age = ?, address = ?, qq = ?, email = ? where id = ?";
+            jdbcTemplate.update(sql, userBean.getName(), userBean.getGender(), userBean.getAge(), userBean.getAddress(), userBean.getQq(), userBean.getEmail(), userBean.getId());
             return true;
         } catch (Exception e) {
             e.printStackTrace();

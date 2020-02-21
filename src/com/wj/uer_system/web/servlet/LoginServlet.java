@@ -20,6 +20,7 @@ import java.util.Map;
  * @Package : ${PACKAGE_NAME}
  * @Author : Created By wangjun, Copyright © wangjun All Rights Reserved
  * @Date : 2020/2/20 00:26
+ * 登录的servlet
  **/
 @WebServlet("/loginServlet")
 public class LoginServlet extends HttpServlet {

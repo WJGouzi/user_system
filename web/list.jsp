@@ -27,6 +27,21 @@
             text-align: center;
         }
     </style>
+
+    <script>
+
+        function deleteUser(userId) {
+            if (confirm("您确定要删除此用户信息?")) {
+                location.href = "${pageContext.request.contextPath}/deleteUserServlet?id=" + userId;
+            }
+        }
+
+        window.onload = function () {
+
+        }
+
+    </script>
+
 </head>
 <body>
 <div class="container">
@@ -83,8 +98,8 @@
                 <td>${user.qq}</td>
                 <td>${user.email}</td>
                 <td>
-                    <a class="btn btn-default btn-sm" href="update.html">修改</a>&nbsp;
-                    <a class="btn btn-default btn-sm" href="">删除</a></td>
+                    <a class="btn btn-default btn-sm" href="${pageContext.request.contextPath}/findUserServlet?id=${user.id}">修改</a>&nbsp;
+                    <a class="btn btn-default btn-sm" href="javascript:deleteUser(${user.id})">删除</a></td>
             </tr>
         </c:forEach>
     </table>

@@ -26,9 +26,30 @@ public interface UserService {
     List<UserBean> findAll();
 
     /**
+     * 通过id查找用户
+     * @param id
+     * @return
+     */
+    UserBean findUserById(String id);
+
+    /**
      * 添加用户
      * @param userBean
      * @return
      */
     Boolean addUser(UserBean userBean);
+
+    /**
+     * 通过用户的id删除
+     * @param userId 用户的id
+     * @return
+     */
+    boolean deleteUserById(String userId);
+
+    /**
+     * 更新用户的信息
+     * @param userBean
+     * @return
+     */
+    boolean updateUserInfo(UserBean userBean);
 }
