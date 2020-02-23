@@ -36,7 +36,7 @@
 
         <div class="form-group">
             <label>性别：</label>
-            <input type="radio" name="gender" value="男" checked="checked"/>男
+            <input type="radio" name="gender" value="男" />男
             <input type="radio" name="gender" value="女"/>女
         </div>
 
@@ -50,7 +50,7 @@
             <select name="address" class="form-control" id="jiguan">
                 <option value="成都">成都</option>
                 <option value="德阳">德阳</option>
-                <option value="绵阳">绵阳</option>
+                <option value="广汉">广汉</option>
             </select>
         </div>
 

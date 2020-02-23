@@ -6,7 +6,10 @@ import com.wj.uer_system.utils.JDBCUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @Project : user_system
@@ -90,4 +93,59 @@ public class UserDaoImpl implements UserDao {
             return false;
         }
     }
+
+    @Override
+    public int countAllUsersCount(Map<String, String[]> queryCondition) {
+        try {
+            String sql = "select count(*) from t_user where 1 = 1";
+            StringBuilder sb = new StringBuilder(sql);
+            Set<String> keys = queryCondition.keySet();
+            List<String> params = new ArrayList<>();
+            for (String key: keys) {
+                if (key.equals("currentPage") || key.equals("number")) {
+                    continue;
+                }
+                String value = queryCondition.get(key)[0];
+                if (value != null && !("".equals(value))) {
+                    sb.append(" and " + key + " like ?");
+                    params.add("%" + value + "%");
+                }
+            }
+            return jdbcTemplate.queryForObject(sb.toString(), Integer.class, params.toArray());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    @Override
+    public List<UserBean> findUserByPage(int startIndex, int number, Map<String, String[]> queryCondition) {
+
+        try {
+            String sql = "select * from t_user where 1 = 1";
+            StringBuilder sb = new StringBuilder(sql);
+            Set<String> keys = queryCondition.keySet();
+            List<Object> params = new ArrayList<>();
+            for (String key: keys) {
+                if (key.equals("currentPage") || key.equals("number")) {
+                    continue;
+                }
+                String value = queryCondition.get(key)[0];
+                if (value != null && !("".equals(value))) {
+                    sb.append(" and " + key + " like ?");
+                    params.add("%" + value + "%");
+                }
+            }
+            sb.append(" order by id asc");
+            sb.append(" limit ?, ?");
+            params.add(startIndex);
+            params.add(number);
+            return jdbcTemplate.query(sb.toString(), new BeanPropertyRowMapper<UserBean>(UserBean.class), params.toArray());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
 }

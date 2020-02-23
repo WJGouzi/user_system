@@ -3,6 +3,7 @@ package com.wj.uer_system.dao;
 import com.wj.uer_system.domain.UserBean;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Project : user_system
@@ -51,4 +52,19 @@ public interface UserDao {
      * @return
      */
     boolean updateUserInfo(UserBean userBean);
+
+    /**
+     * 查询所有用户的数量
+     * @return
+     */
+    int countAllUsersCount(Map<String, String[]> queryCondition);
+
+    /**
+     * 根据条件有限的查询用户的信息
+     * @param startIndex
+     * @param number
+     * @param queryCondition
+     * @return
+     */
+    List<UserBean> findUserByPage(int startIndex, int number, Map<String, String[]> queryCondition);
 }

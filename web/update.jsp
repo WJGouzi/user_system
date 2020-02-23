@@ -15,7 +15,13 @@
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <script src="js/jquery-2.1.0.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
-        
+
+        <script>
+            function back() {
+                window.history.back();
+            }
+        </script>
+
     </head>
     <body>
         <div class="container" style="width: 400px;">
@@ -75,11 +81,10 @@
             <label for="email">Email：</label>
             <input type="text" class="form-control" value="${updateUserInfo.email}" name="email" placeholder="请输入邮箱地址"/>
           </div>
-
              <div class="form-group" style="text-align: center">
                 <input class="btn btn-primary" type="submit" value="提交" />
                 <input class="btn btn-default" type="reset" value="重置" />
-                <input class="btn btn-default" type="button" value="返回"/>
+                <input class="btn btn-default" type="button" onclick="back()" value="返回"/>
              </div>
         </form>
         </div>

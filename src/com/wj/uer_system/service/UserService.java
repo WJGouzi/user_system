@@ -1,8 +1,10 @@
 package com.wj.uer_system.service;
 
+import com.wj.uer_system.domain.PageBean;
 import com.wj.uer_system.domain.UserBean;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Project : user_system
@@ -47,9 +49,25 @@ public interface UserService {
     boolean deleteUserById(String userId);
 
     /**
+     * 通过id删除选择的所有用户
+     * @param selectedUserIds
+     * @return
+     */
+    boolean deleteUserByIds(String[] selectedUserIds);
+
+    /**
      * 更新用户的信息
      * @param userBean
      * @return
      */
     boolean updateUserInfo(UserBean userBean);
+
+    /**
+     * 根据页数进行数据的查询
+     * @param _currentPage
+     * @param _number
+     * @param _queryCondition
+     * @return
+     */
+    PageBean<UserBean> findUserByPage(String _currentPage, String _number, Map<String, String[]> _queryCondition);
 }

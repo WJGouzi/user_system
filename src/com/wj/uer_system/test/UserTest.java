@@ -1,10 +1,12 @@
 package com.wj.uer_system.test;
 
+import com.wj.uer_system.domain.PageBean;
 import com.wj.uer_system.domain.UserBean;
 import com.wj.uer_system.service.UserService;
 import com.wj.uer_system.service.impl.UserServiceImpl;
 import org.junit.Test;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -46,5 +48,11 @@ public class UserTest {
     public void updateUserInfo() {
         UserBean userBean = new UserBean(13, "黄思盛", "男", 25, "德阳", "55231213", "huangsisheng@qq.com", null, null);
         userService.updateUserInfo(userBean);
+    }
+
+    @Test
+    public void countAllUserNumber () {
+        PageBean<UserBean> pageBean = userService.findUserByPage("1", "5", new HashMap<>());
+        System.out.println(pageBean);
     }
 }
