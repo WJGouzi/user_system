@@ -20,7 +20,7 @@
     <script type="text/javascript">
 	 	function refreshCode() {
 	 		var checkCode = document.getElementById("vcode");
-	 		checkCode.src = "${pageContext.request.contextPath}/checkCodeServlet?time=" + new Date().getTime();
+	 		checkCode.src = "${pageContext.request.contextPath}/newCheckCodeServlet?time=" + new Date().getTime();
 		}
 
 		window.onload = function () {
@@ -47,12 +47,12 @@
 	        <label for="password">密码：</label>
 	        <input type="password" name="password" class="form-control" id="password" placeholder="请输入密码"/>
 	      </div>
-	      
+			
 	      <div class="form-inline">
 	        <label for="vcode">验证码：</label>
 	        <input type="text" name="verifycode" class="form-control" id="verifycode" placeholder="请输入验证码" style="width: 120px;"/>
 	        <a href="javascript:refreshCode()">
-				<img src="${pageContext.request.contextPath}/checkCodeServlet" title="看不清点击刷新" id="vcode"/>
+				<img src="${pageContext.request.contextPath}/newCheckCodeServlet" title="看不清点击刷新" id="vcode"/>
 			</a>
 	      </div>
 	      <hr/>
@@ -60,7 +60,6 @@
 	        <input id="submit" class="btn btn btn-primary" type="submit" value="登录">
 	       </div>
 	  	</form>
-		
 		<!-- 出错显示的信息框 -->
 	  	<c:if test="${fn:length(loginError)>'0'}" >
 			<div class="alert alert-warning alert-dismissible" role="alert">

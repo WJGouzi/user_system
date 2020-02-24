@@ -110,7 +110,6 @@
                 <th>邮箱</th>
                 <th>操作</th>
             </tr>
-
 <%--            <c:forEach items="${allUsers}" var="user" varStatus="vs">--%>
             <c:forEach items="${pageBean.beanList}" var="user" varStatus="vs">
                 <tr>
