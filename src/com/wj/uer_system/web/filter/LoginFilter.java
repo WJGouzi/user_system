@@ -17,7 +17,7 @@ public class LoginFilter implements Filter {
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
         HttpServletRequest request = (HttpServletRequest)req;
         String requestURI = request.getRequestURI();
-        if (requestURI.contains("/login.jsp") || requestURI.contains("/loginServlet") || requestURI.contains("/newCheckCodeServlet") || requestURI.contains("/css/") || requestURI.contains("/js/") || requestURI.contains("/fonts/")) {
+        if (requestURI.contains("/login.jsp") || requestURI.contains("/loginServlet") || requestURI.contains("/newCheckCodeServlet") || requestURI.contains("/register.jsp") || requestURI.contains("/findAdminServlet") || requestURI.contains("/registerServlet") || requestURI.contains("/css/") || requestURI.contains("/js/") || requestURI.contains("/fonts/")) {
             chain.doFilter(req, resp);
         } else {
             Object user = request.getSession().getAttribute("userInfo");

@@ -14,22 +14,22 @@
     <!-- 1. 导入CSS的全局样式 -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <!-- 2. jQuery导入，建议使用1.9以上的版本 -->
-    <script src="js/jquery-2.1.0.min.js"></script>
+    <script src="js/jquery3.4.1.min.js"></script>
     <!-- 3. 导入bootstrap的js文件 -->
     <script src="js/bootstrap.min.js"></script>
-    <script type="text/javascript">
+    <script>
 	 	function refreshCode() {
 	 		var checkCode = document.getElementById("vcode");
 	 		checkCode.src = "${pageContext.request.contextPath}/newCheckCodeServlet?time=" + new Date().getTime();
 		}
 
-		window.onload = function () {
-			document.getElementById("submit").onclick = function () {
-				var userIdTag = document.getElementById("userId");
-				var passwordTag = document.getElementById("password");
-				var checkCodeTag = document.getElementById("verifycode");
-				return;
-			}
+		function login() {
+			document.loginFrom.action = "${pageContext.request.contextPath}/loginServlet";
+			document.loginFrom.submit();
+		}
+		function register() {
+			document.loginFrom.action = "${pageContext.request.contextPath}/register.jsp";
+			document.loginFrom.submit();
 		}
 	</script>
 
@@ -37,7 +37,7 @@
   <body>
   	<div class="container" style="width: 400px;">
   		<h3 style="text-align: center;">管理员登录</h3>
-        <form id="submitForm" action="${pageContext.request.contextPath}/loginServlet" method="post">
+        <form id="submitForm" action="" name="loginFrom" method="post" enctype="multipart/form-data">
 	      <div class="form-group">
 	        <label for="userId">用户名：</label>
 	        <input type="text" name="userId" class="form-control" id="userId" placeholder="请输入用户名"/>
@@ -57,8 +57,9 @@
 	      </div>
 	      <hr/>
 	      <div class="form-group" style="text-align: center;">
-	        <input id="submit" class="btn btn btn-primary" type="submit" value="登录">
-	       </div>
+			  <button class="btn btn btn-primary" onclick="login();">登录</button>
+			  <button class="btn btn btn-default" onclick="register();">注册</button>
+          </div>
 	  	</form>
 		<!-- 出错显示的信息框 -->
 	  	<c:if test="${fn:length(loginError)>'0'}" >
