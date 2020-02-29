@@ -12,26 +12,39 @@
     <!-- 1. 导入CSS的全局样式 -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <!-- 2. jQuery导入，建议使用1.9以上的版本 -->
-    <script src="js/jquery3.4.1.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js/jquery3.4.1.min.js"></script>
     <!-- 3. 导入bootstrap的js文件 -->
     <script src="js/bootstrap.min.js"></script>
 
-    <script>
+    <script type="text/javascript">
         $(function () {
             $("#userId").blur(function () {
                 var userName = $(this).val();
                 // 去获取
                 $.post(
-                    "/findAdminServlet",
-                    {userId: userName},
-                    function (data) {
-
-
+                    "${pageContext.request.contextPath}/findAdminServlet",
+                    {userName: userName},
+                    function (data, status) {
+                        if (status == "success") {
+                            if (data.existFlag == 0) {
+                                $("#userId").after("<span style='color: green'>该用户名可以使用</span>");
+                            } else  {
+                                $("#userId").after("<span style='color: red'>该用户名已被抢注了</span>");
+                            }
+                        }
+                        alert(data + ":" + status);
                     }
                 );
+
+                $("#userId").focus(function () {
+                    $(this).nextAll().remove();
+                });
+            })
+
+            $("#avcode").click(function () {
+                $("#vcode").attr("src", "${pageContext.request.contextPath}/newCheckCodeServlet?time=" + new Date().getTime())
             })
         })
-
 
     </script>
 </head>
@@ -73,7 +86,7 @@
         <div class="form-inline">
             <label for="verifycode">验证码：</label>
             <input type="text" name="verifycode" class="form-control" id="verifycode" placeholder="请输入验证码" style="width: 120px;"/>
-            <a href="javascript:refreshCode()">
+            <a id="avcode">
                 <img src="${pageContext.request.contextPath}/newCheckCodeServlet" title="看不清点击刷新" id="vcode"/>
             </a>
         </div>

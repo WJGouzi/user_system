@@ -1,5 +1,6 @@
 package com.wj.uer_system.web.servlet;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wj.uer_system.domain.AdminUserBean;
 import com.wj.uer_system.service.AdminService;
 import com.wj.uer_system.service.impl.AdminServiceImpl;
@@ -33,7 +34,10 @@ public class FindAdminServlet extends HttpServlet {
         } else  {
             map.put("existFlag", 0);
         }
-
+        ObjectMapper objectMapper = new ObjectMapper();
+        String s = objectMapper.writeValueAsString(map);
+        response.getWriter().print(s);
+        System.out.println(s);
     }
 
     @Override

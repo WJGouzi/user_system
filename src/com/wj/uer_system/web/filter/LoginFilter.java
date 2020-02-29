@@ -21,7 +21,10 @@ public class LoginFilter implements Filter {
             chain.doFilter(req, resp);
         } else {
             Object user = request.getSession().getAttribute("userInfo");
+            Object adminInfo = request.getSession().getAttribute("adminInfo");
             if (user != null) {
+                chain.doFilter(req, resp);
+            } else if (adminInfo != null) {
                 chain.doFilter(req, resp);
             } else  {
                 request.setAttribute("loginError", "您还未登录，先请登录!");

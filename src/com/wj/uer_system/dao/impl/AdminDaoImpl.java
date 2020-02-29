@@ -17,7 +17,6 @@ public class AdminDaoImpl implements AdminDao {
     @Override
     public boolean addAdminUser(AdminUserBean adminUserBean) {
         try {
-            //String sql = "insert into t_user values(null, ?, ?, ?, ?, ?, ?, null, null)";
             String sql = "insert into t_admin values(null, ?, ?, null, null, null, null, ?, ?, ?)";
             jdbcTemplate.update(sql, adminUserBean.getName(), adminUserBean.getGender(), adminUserBean.getUserId(), adminUserBean.getPassword(), adminUserBean.getIdCard());
             return true;

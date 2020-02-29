@@ -39,28 +39,18 @@ public class RegisterServlet extends HttpServlet {
             return;
         }
         Map<String, String[]> parameterMap = request.getParameterMap();
-        Iterator<String> iterator = parameterMap.keySet().iterator();
-        while (iterator.hasNext()) {
-            String key = iterator.next();
+        parameterMap = new HashMap<>(request.getParameterMap());
+        for (String key: parameterMap.keySet()) {
             if (key.equals("verifycode")) {
-                iterator.remove();
+                parameterMap.remove(key);
                 break;
             }
         }
-        parameterMap.remove("verifycode");
-
         // 获取两次的密码是否一致
         String password = parameterMap.get("password")[0];
         String checkPassword = parameterMap.get("checkPassword")[0];
-        if (password == checkPassword) {
-            //while (iterator.hasNext()) {
-            //    String key = iterator.next();
-            //    if (key.equals("checkPassword")) {
-            //        iterator.remove();
-            //        parameterMap.remove(key);
-            //        break;
-            //    }
-            //}
+        if (password.equals(checkPassword)) {
+            parameterMap.remove("checkPassword");
         } else {
             request.setAttribute("loginError", "您两次输入的密码有误，请核对");
             request.getRequestDispatcher("/register.jsp").forward(request, response);

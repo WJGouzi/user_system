@@ -7,6 +7,8 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -26,8 +28,12 @@
 </head>
 <body>
 
-    <div>${userInfo.name}, 欢迎您...</div>
-
+    <c:if test="${fn:length(userInfo.name) > 0}">
+        <div>${userInfo.name}, 欢迎您...</div>
+    </c:if>
+    <c:if test="${fn:length(adminInfo.name) > 0}">
+        <div>${adminInfo.name}, 欢迎您...</div>
+    </c:if>
     <div align="center">
 <%--      <a href="${pageContext.request.contextPath}/allUserListServlet" style="text-decoration:none;font-size:33px">查询所有用户信息 </a>--%>
         <a href="${pageContext.request.contextPath}/findUsersByPageServlet" style="text-decoration:none;font-size:33px">
